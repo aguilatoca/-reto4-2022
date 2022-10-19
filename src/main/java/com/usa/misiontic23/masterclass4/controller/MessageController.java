@@ -2,6 +2,7 @@ package com.usa.misiontic23.masterclass4.controller;
 
 
 
+import com.usa.misiontic23.masterclass4.entities.Category;
 import com.usa.misiontic23.masterclass4.entities.Message;
 import com.usa.misiontic23.masterclass4.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class MessageController {
     @ResponseStatus(HttpStatus.CREATED)
     public Message update(@RequestBody Message p) {return messageService.update(p);
     }
+
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int id){return messageService.delete(id);}

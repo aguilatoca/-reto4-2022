@@ -2,6 +2,7 @@ package com.usa.misiontic23.masterclass4.controller;
 
 
 import com.usa.misiontic23.masterclass4.entities.Box;
+import com.usa.misiontic23.masterclass4.entities.Category;
 import com.usa.misiontic23.masterclass4.service.BoxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,20 @@ public class BoxController {
     @ResponseStatus(HttpStatus.CREATED)
     public Box save(@RequestBody Box p){
         return boxService.save(p);
+    }
+
+
+    @PutMapping("update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Box update(@RequestBody Box p){
+        return BoxService.update(p);
+    }
+
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable("id") int id){
+        return BoxService.delete(id);
     }
 
 }

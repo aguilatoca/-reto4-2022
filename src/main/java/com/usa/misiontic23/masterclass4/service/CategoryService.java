@@ -26,9 +26,10 @@ public class CategoryService {
         }else{
             Optional<Category> e = categoryRepository.getById(p.getId());
             if (e.isPresent()){
-                return p;
-            }else{
                 return categoryRepository.save(p);
+            }else{
+
+                return p;
             }
         }
     }
@@ -38,33 +39,42 @@ public class CategoryService {
         if (p.getId()!=null)
         {
             Optional<Category> q = categoryRepository.getById(p.getId());
-            if(q.isPresent())
+            if(!q.isEmpty())
             {
+                if (p.getDescription() != null)
+                {
+                    q.get().setDescription(p.getDescription());
+                }
+
                 if (p.getName() != null)
                 {
                     q.get().setName(p.getName());
                 }
 
-                categoryRepository.save(q.get());
-                return q.get();
+                return categoryRepository.save(q.get());
 
-            } else
-            {
-                return p;
             }
-        }else {
-            return p;
         }
+        return p;
     }
 
-    public boolean delete(int id){
-        boolean flag=false;
+   /* public boolean delete(int id){
+       boolean flag=false;
         Optional<Category>p= categoryRepository.getById(id);
         if(p.isPresent()){
             categoryRepository.delete(p.get());
             flag=true;
         }
         return flag;
+    }*/
+
+    public boolean delete(int id){
+        boolean d =getCategory(id).map(category -> {
+            categoryRepository.delete(category);
+            return true;
+        }).orElse(false);
+
+        return d;
     }
 
 }

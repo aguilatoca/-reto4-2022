@@ -15,16 +15,16 @@ public class BoxService {
     private BoxRepository boxRepository;
 
     public List<Box> getALL(){
-        return boxRepository.getALL();
+        return boxRepository.getAll();
     }
     public Optional<Box> getBox(int id){
-        return boxRepository.getById(id);
+        return boxRepository.getBox(id);
     }
     public Box save(Box p){
         if(p.getId()==null){
             return boxRepository.save(p);
         }else{
-            Optional<Box> e = boxRepository.getById(p.getId());
+            Optional<Box> e = boxRepository.getBox(p.getId());
             if (e.isPresent()){
                 return p;
             }else{
@@ -33,11 +33,11 @@ public class BoxService {
         }
     }
 
-    public Box update(Box p)
+    public static Box update(Box p)
     {
         if (p.getId()!=null)
         {
-            Optional<Box> q = boxRepository.getById(p.getId());
+            Optional<Box> q = boxRepository.getBox(p.getId());
             if(q.isPresent())
             {
                 if (p.getName() != null)
@@ -68,7 +68,8 @@ public class BoxService {
         }
     }
 
-    public boolean delete(int id){
+
+    /*public boolean delete(int id){
         boolean flag=false;
         Optional<Box>p= boxRepository.getById(id);
         if(p.isPresent()){
@@ -76,5 +77,14 @@ public class BoxService {
             flag=true;
         }
         return flag;
+    }*/
+
+    public static boolean delete(int id){
+        boolean d =getBox(id).map(box -> {
+            boxRepository.delete(box);
+            return true;
+        }).orElse(false);
+
+        return d;
     }
 }

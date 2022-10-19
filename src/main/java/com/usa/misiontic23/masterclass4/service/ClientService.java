@@ -12,12 +12,12 @@ import java.util.Optional;
 public class ClientService {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private static ClientRepository clientRepository;
 
     public List<Client> getALL(){
         return clientRepository.getALL();
     }
-    public Optional<Client> getClient(int id){
+    public static Optional<Client> getClient(int id){
         return clientRepository.getById(id);
     }
     public Client save(Client p){
@@ -34,16 +34,26 @@ public class ClientService {
         }
     }
 
-    public Client update(Client p)
+    public static Client update(Client p)
     {
         if (p.getIdClient()!=null)
         {
             Optional<Client> q = clientRepository.getById(p.getIdClient());
-            if(q.isPresent())
+            if(q.isEmpty())
             {
                 if (p.getName() != null)
                 {
                     q.get().setName(p.getName());
+                }
+
+                if (p.getAge() != null)
+                {
+                    q.get().setAge(p.getAge());
+                }
+
+                if (p.getPassword() != null)
+                {
+                    q.get().setPassword(p.getPassword());
                 }
 
                 clientRepository.save(q.get());
@@ -58,7 +68,7 @@ public class ClientService {
         }
     }
 
-    public boolean delete(int id){
+   /* public boolean delete(int id){
         boolean flag=false;
         Optional<Client>p= clientRepository.getById(id);
         if(p.isPresent()){
@@ -66,5 +76,13 @@ public class ClientService {
             flag=true;
         }
         return flag;
+    }*/
+    public static boolean delete(int id){
+        boolean d =getClient(id).map(client -> {
+            clientRepository.delete(client);
+            return true;
+        }).orElse(false);
+
+        return d;
     }
 }

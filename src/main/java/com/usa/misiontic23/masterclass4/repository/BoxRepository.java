@@ -15,17 +15,16 @@ public class BoxRepository {
 
     @Autowired
     private BoxCrudRepository boxCrudRepository;
-    public List<Box> getALL(){
+    public List<Box> getAll(){
         return (List<Box>) boxCrudRepository.findAll();
+    }
 
-    }
-    public Optional<Box> getById(int id){
-        return boxCrudRepository.findById(id);
-    }
+    public Optional<Box> getBox(int id){
+        return BoxCrudRepository.findById(id);    }
     public Box save(Box p){
         return boxCrudRepository.save(p);
     }
     public void delete(Box c){
-        boxCrudRepository.delete(p);
+        boxCrudRepository.delete((BoxCrudRepository) c);
     }
 }

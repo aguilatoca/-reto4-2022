@@ -55,12 +55,12 @@ public class ReservationController {
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Reservation update(@RequestBody Reservation reservation) {return reservationService.update(reservation);
+    public Reservation update(@RequestBody Reservation P) {return reservationService.update(P);
     }
-    @DeleteMapping("/{id}")
+    /*@DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int id){return reservationService.delete(id);}
-
+*/
     @GetMapping("/report-clients")
     public List<CountClient> getReportClientesTop(){
         return reservationService.getClientesTop();
@@ -74,5 +74,12 @@ public class ReservationController {
     @GetMapping("report-status")
     public CountStatus getReportSatatus(){
         return reservationService.getReservationsStatus();
+    }
+
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable("id") int id){
+        return reservationService.delete(id);
     }
 }

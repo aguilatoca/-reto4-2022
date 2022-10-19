@@ -1,6 +1,7 @@
 package com.usa.misiontic23.masterclass4.controller;
 
 
+import com.usa.misiontic23.masterclass4.entities.Category;
 import com.usa.misiontic23.masterclass4.entities.Client;
 import com.usa.misiontic23.masterclass4.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,18 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     public Client save(@RequestBody Client p){
         return clientService.save(p);
+    }
+
+    @PutMapping("update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Client update(@RequestBody Client p){
+        return ClientService.update(p);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable("id") int id){
+        return ClientService.delete(id);
     }
 
 }

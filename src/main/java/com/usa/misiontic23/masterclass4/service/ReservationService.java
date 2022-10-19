@@ -62,16 +62,23 @@ public class ReservationService {
         return reservation;
 
     }
-
+/*
     public boolean delete(int id){
         Boolean respuesta = getReservation(id).map(elemento ->{
             reservationRepository.delete(elemento);
             return true;
         }).orElse(false);
         return respuesta;
+    }*/
+
+    public boolean delete(int id){
+        boolean d =getReservation(id).map(reservation -> {
+            reservationRepository.delete(reservation);
+            return true;
+        }).orElse(false);
+
+        return d;
     }
-
-
     public List<CountClient> getClientesTop(){
         return reservationRepository.getClientesTop();
     }
